@@ -15,38 +15,25 @@ public final class BoardingPass {
     }
 
     private int getRow(String rowPath) {
-        SpacePartition row = new SpacePartition(0, 127);
-
-        char[] chars = rowPath.toCharArray();
-        for (char c : chars) {
-            switch (c) {
-                case 'F':
-                    row = row.takeLowerHalf();
-                    break;
-                case 'B':
-                    row = row.takeUpperHalf();
-                    break;
-            }
-        }
-
-        return row.middle();
+        return followPath(rowPath, 0, 127, 'F', 'B');
     }
 
     private int getColumn(String columnPath) {
-        SpacePartition column = new SpacePartition(0, 7);
+        return followPath(columnPath, 0, 7, 'L', 'R');
+    }
 
-        char[] chars = columnPath.toCharArray();
+    private int followPath(String path, int lowerBound, int upperBound, char lowerInstruction, char upperInstruction) {
+        SpacePartition partition = new SpacePartition(lowerBound, upperBound);
+
+        char[] chars = path.toCharArray();
         for (char c : chars) {
-            switch (c) {
-                case 'L':
-                    column = column.takeLowerHalf();
-                    break;
-                case 'R':
-                    column = column.takeUpperHalf();
-                    break;
+            if (c == lowerInstruction) {
+                partition = partition.takeLowerHalf();
+            } else if (c == upperInstruction) {
+                partition = partition.takeUpperHalf();
             }
         }
 
-        return column.middle();
+        return partition.middle();
     }
 }
