@@ -14,7 +14,7 @@ public final class SpacePartition {
             return new SpacePartition(min, min);
         }
 
-        return new SpacePartition(min, roundDownMiddle());
+        return new SpacePartition(min, middle(false));
     }
 
     public final SpacePartition takeUpperHalf() {
@@ -22,7 +22,7 @@ public final class SpacePartition {
             return new SpacePartition(max, max);
         }
 
-        return new SpacePartition(roundUpMiddle(), max);
+        return new SpacePartition(middle(true), max);
     }
 
     public final int middle() {
@@ -31,18 +31,10 @@ public final class SpacePartition {
 
     public final int middle(boolean roundUp) {
         if (roundUp) {
-            return roundUpMiddle();
+            return ((min + max) + 1) / 2;
         } else {
-            return roundDownMiddle();
+            return (min + max) / 2;
         }
-    }
-
-    private int roundUpMiddle() {
-        return ((min + max) + 1) / 2;
-    }
-
-    private int roundDownMiddle() {
-        return (min + max) / 2;
     }
 
     @Override
