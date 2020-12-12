@@ -1,2 +1,4 @@
-package dayseven;public class DaySeven {
+package dayseven;
+
+public class DaySeven {
 }
